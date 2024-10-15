@@ -31,6 +31,7 @@ export default function Page() {
     });
   }, []);
 
+  // Peer の作成
   useEffect(() => {
     if (!localStream) {
       return
@@ -51,6 +52,7 @@ export default function Page() {
     setPeer(peer);
   }, [localStream]);
 
+  // 発信ボタンクリック時
   const onMakeCall = () => {
     const mediaConnection = peer.call(theirId, localStream);
     setRemotePeerId(mediaConnection.remoteId)
