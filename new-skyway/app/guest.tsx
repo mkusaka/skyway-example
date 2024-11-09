@@ -1,21 +1,18 @@
 "use client"
 
-import {useP2PHost} from "./useP2P";
+import {useP2PGuest, useP2PHost} from "./useP2P";
 import {useCallback, useRef, useState} from "react";
 
-export default function Host() {
+export default function Guest() {
   const [roomId, setRoomId] = useState<string | null>(null);
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
 
   const {
     isLocalMemberJoining,
-    isRemoteMemberJoining,
-    isInConversation,
     joinSession,
     leaveSession,
-    startConversation,
-  } = useP2PHost(
+  } = useP2PGuest(
     localVideoRef,
     remoteVideoRef,
   );
@@ -29,7 +26,7 @@ export default function Host() {
   }, [roomId])
 
   return <>
-    <p>Host page</p>
+    <p>Guest page</p>
     <div>
       room id:
       <input id="room-id" type="text" value={roomId || ""} onChange={ev => setRoomId(ev.target.value)}
@@ -37,9 +34,6 @@ export default function Host() {
       <div>
         <button id="join" disabled={isLocalMemberJoining} onClick={join}>
           join
-        </button>
-        <button id="conversation" disabled={!isLocalMemberJoining || !isRemoteMemberJoining || isInConversation} onClick={startConversation}>
-          通話開始
         </button>
         <button id="leave" disabled={!isLocalMemberJoining} onClick={leaveSession}>
           leave
@@ -52,7 +46,7 @@ export default function Host() {
 }
 
 async function createToken() {
-  const res = await fetch("/api/tokens/hosts", {
+  const res = await fetch("/api/tokens/guests", {
     method: "POST",
   });
   const { token } = await res.json();

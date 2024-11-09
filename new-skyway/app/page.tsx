@@ -1,12 +1,11 @@
 "use client"
 
-import Member from "./member";
 import Host from "./host";
-import Attendee from "./attendee";
 import {useState} from "react";
 import Link from "next/link";
+import Guest from "./guest";
 
-type ShowResources = "link" | "member" | "host" | "attendee";
+type ShowResources = "link" | "host" | "guest";
 
 export default function Page() {
   const [showResources, setShowResources] = useState<ShowResources>("link");
@@ -16,26 +15,19 @@ export default function Page() {
       return <>
         <div>
           <Link href="" onClick={() => {
-            setShowResources("member")
-          }}>Member page</Link>
-        </div>
-        <div>
-          <Link href="" onClick={() => {
             setShowResources("host")
           }}>Host page</Link>
         </div>
         <div>
           <Link href="" onClick={() => {
-            setShowResources("attendee")
-          }}>Attendee page</Link>
+            setShowResources("guest")
+          }}>Guest page</Link>
         </div>
       </>
-    case "member":
-      return <Member/>
     case "host":
       return <Host/>
-    case "attendee":
-      return <Attendee/>
+    case "guest":
+      return <Guest/>
     default:
       return <></>
   }

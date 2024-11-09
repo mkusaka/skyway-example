@@ -28,7 +28,7 @@ export async function POST() {
                 publication: {
                   actions: ["write"],
                 },
-                // attendee はサブスクリプションの作成不可
+                // guest はサブスクリプションの作成不可
                 // subscription: {
                 //   actions: ["write"],
                 // },
